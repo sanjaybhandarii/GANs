@@ -13,14 +13,15 @@ class Discriminator(nn.Module):
             # input: N x img_channels x 64 x 64
             nn.Conv2d(
                 img_channels, features_d, kernel_size=4, stride=2, padding=1
-            ), 
+            ), #32 x 32
             nn.LeakyReLU(0.2),
-            # _block(in_channels, out_channels, kernel_size, stride, padding)
-            self._block(features_d, features_d * 2, 4, 2, 1),
-            self._block(features_d * 2, features_d * 4, 4, 2, 1),
-            self._block(features_d * 4, features_d * 8, 4, 2, 1),
-            # After all _block img output is 4x4 (Conv2d below makes into 1x1)
+
+            self._block(features_d, features_d * 2, 4, 2, 1), #16 x16
+            self._block(features_d * 2, features_d * 4, 4, 2, 1), #8 x 8
+            self._block(features_d * 4, features_d * 8, 4, 2, 1), #4 x 4
+           
             nn.Conv2d(features_d * 8, 1, kernel_size=4, stride=2, padding=0),
+            # 1 x 1
             nn.Sigmoid(),
         )
 
@@ -34,7 +35,7 @@ class Discriminator(nn.Module):
                 padding,
                 bias=False,
             ),
-            #nn.BatchNorm2d(out_channels),
+            nn.BatchNorm2d(out_channels),
             nn.LeakyReLU(0.2),
         )
 
@@ -68,7 +69,7 @@ class Generator(nn.Module):
                 padding,
                 bias=False,
             ),
-            #nn.BatchNorm2d(out_channels),
+            nn.BatchNorm2d(out_channels),
             nn.ReLU(),
         )
 
@@ -93,4 +94,4 @@ def test():
     assert gen(z).shape == (N, in_channels, H, W), "Generator test failed"
     print("All tests passed")
 
-test()
+# test()
