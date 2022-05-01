@@ -32,7 +32,7 @@
 
     
 
-5. Understanding GAN Loss 
+6. Understanding GAN Loss 
 
     ->For GANs the losses are very non-intuitive. Mostly it happens down to the fact that generator and discriminator are competing against each other, hence improvement on the one means the higher loss on the other, until this other learns better on the received loss, which screws up its competitor, etc.
 
