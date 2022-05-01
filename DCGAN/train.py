@@ -47,7 +47,7 @@ opt_gen = optim.Adam(gen.parameters(), lr=LEARNING_RATE, betas=(0.5, 0.999))
 opt_disc = optim.Adam(disc.parameters(), lr=LEARNING_RATE, betas=(0.5, 0.999))
 criterion = nn.BCELoss()
 
-fixed_noise = torch.randn(32, Z_DIM, 1, 1)
+fixed_noise = torch.randn(32, Z_DIM, 1, 1).to(device)
 
 img_list = []
 
@@ -85,7 +85,7 @@ for epoch in range(NUM_EPOCHS):
 
         if (iters % 200 == 0) or ((epoch == NUM_EPOCHS-1) and (i == len(loader)-1)):
             with torch.no_grad():
-                faker = gen(fixed_noise)
+                faker = gen(fixed_noise).detach().cpu()
             img_list.append(vutils.make_grid(faker, padding=2, normalize=True))
 
 
