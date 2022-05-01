@@ -8,6 +8,10 @@ import torch.optim as optim
 import torchvision
 import torchvision.datasets as datasets
 import torchvision.transforms as transforms
+import matplotlib.pyplot as plt
+import matplotlib.animation as animation
+from IPython.display import HTML
+import torchvision.utils as vutils
 from model import Generator, Discriminator, initialize_weights
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -45,11 +49,15 @@ criterion = nn.BCELoss()
 
 fixed_noise = torch.randn(32, Z_DIM, 1, 1)
 
+img_list = []
+
 gen.train()
 disc.train()
+iters = 0
 
 for epoch in range(NUM_EPOCHS):
     for i, (imgs, _) in enumerate(loader):
+        iters += 1
         imgs = imgs.to(device)
         noise = torch.randn(BATCH_SIZE, Z_DIM, 1, 1).to(device)
         # Train Discriminator
@@ -73,15 +81,32 @@ for epoch in range(NUM_EPOCHS):
         gen.zero_grad()
         g_loss.backward()
         opt_gen.step()
-        if i % 100 == 0:
+
+
+        if (iters % 500 == 0) or ((epoch == NUM_EPOCHS-1) and (i == len(loader)-1)):
+            with torch.no_grad():
+                fake = gen(fixed_noise).detach().cpu()
+            img_list.append(vutils.make_grid(fake, padding=2, normalize=True))
+
+
+
+        if i == 0:
             print("Epoch: {}/{}".format(epoch, NUM_EPOCHS))
             print("Discriminator loss: {}".format(d_loss))
             print("Generator loss: {}".format(g_loss))
-            print("Real outputs: {}".format(real_outputs))
-            print("Fake outputs: {}".format(fake_outputs))
-            print("Real labels: {}".format(real_labels))
-            print("Fake labels: {}".format(fake_labels))
-            print("Generator output: {}".format(gen(noise)))
-            print("Discriminator output: {}".format(disc(imgs)))
+            # print("Real outputs: {}".format(real_outputs))
+            # print("Fake outputs: {}".format(fake_outputs))
+            # print("Real labels: {}".format(real_labels))
+            # print("Fake labels: {}".format(fake_labels))
+            # print("Generator output: {}".format(gen(noise)))
+            # print("Discriminator output: {}".format(disc(imgs)))
             print("\n")
+
+
+fig = plt.figure(figsize=(8,8))
+plt.axis("off")
+ims = [[plt.imshow(np.transpose(i,(1,2,0)), animated=True)] for i in img_list]
+ani = animation.ArtistAnimation(fig, ims, interval=1000, repeat_delay=1000, blit=True)
+
+HTML(ani.to_jshtml())
 
