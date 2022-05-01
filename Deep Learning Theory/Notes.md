@@ -25,6 +25,7 @@
 
 
 5. Comparison of Normalization Techniques
+![heeo](https://user-images.githubusercontent.com/53966090/166148592-10cdbf9b-4ee8-4476-8bdd-505f478e3de6.png)
 
     ![alt text](Deep Learning Theory/A.png?raw=true "Comparison")
 
