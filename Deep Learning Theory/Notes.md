@@ -26,7 +26,7 @@
 
 5. Comparison of Normalization Techniques
 
-    ![alt text](/home/chaos/Documents/GitHub/GANs/Deep Learning Theory/A.png?raw=true "Comparison")
+    ![alt text](Deep Learning Theory/A.png?raw=true "Comparison")
 
 5. Understanding GAN Loss 
 
