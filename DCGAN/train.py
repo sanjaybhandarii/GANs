@@ -31,7 +31,7 @@ transforms = transforms.Compose([
 ]
 )
 
-dataset = datasets.MNIST(root=./data, train=True, transform=transforms, download=True)
+dataset = datasets.MNIST(root="./data", train=True, transform=transforms, download=True)
 loader = torch.utils.data.DataLoader(dataset, batch_size=BATCH_SIZE, shuffle=True)
 
 gen = Generator(Z_DIM, CHANNELS_IMG, FEATURES_GEN).to(device)
@@ -45,5 +45,39 @@ criterion = nn.BCELoss()
 
 noise = torch.randn(BATCH_SIZE, Z_DIM, 1, 1).to(device)
 
+gen.train()
+disc.train()
 
+for epoch in range(NUM_EPOCHS):
+    for i, (imgs, _) in enumerate(loader):
+        imgs = imgs.to(device)
+        # Train Discriminator
+        disc.zero_grad()
+        real_labels = torch.ones(BATCH_SIZE, 1, 1, 1).to(device)
+        fake_labels = torch.zeros(BATCH_SIZE, 1, 1, 1).to(device)
+        real_outputs = disc(imgs)
+        fake_outputs = disc(gen(noise))
+        real_loss = criterion(real_outputs, real_labels)
+        fake_loss = criterion(fake_outputs, fake_labels)
+        d_loss = (real_loss + fake_loss) / 2
+        d_loss.backward()
+        opt_disc.step()
+        # Train Generator
+        gen.zero_grad()
+        gen_labels = torch.ones(BATCH_SIZE, 1, 1, 1).to(device)
+        gen_outputs = disc(gen(noise))
+        g_loss = criterion(gen_outputs, gen_labels)
+        g_loss.backward()
+        opt_gen.step()
+        if i % 100 == 0:
+            print("Epoch: {}/{}".format(epoch, NUM_EPOCHS))
+            print("Discriminator loss: {}".format(d_loss))
+            print("Generator loss: {}".format(g_loss))
+            print("Real outputs: {}".format(real_outputs))
+            print("Fake outputs: {}".format(fake_outputs))
+            print("Real labels: {}".format(real_labels))
+            print("Fake labels: {}".format(fake_labels))
+            print("Generator output: {}".format(gen(noise)))
+            print("Discriminator output: {}".format(disc(imgs)))
+            print("\n")
 
