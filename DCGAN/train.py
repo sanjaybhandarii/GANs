@@ -13,7 +13,7 @@ from model import Generator, Discriminator, initialize_weights
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 LEARNING_RATE = 2e-4
-BATCH_SIZE = 32
+BATCH_SIZE = 128
 IMAGE_SIZE = 64
 CHANNELS_IMG = 1
 Z_DIM = 100
@@ -43,7 +43,7 @@ opt_gen = optim.Adam(gen.parameters(), lr=LEARNING_RATE, betas=(0.5, 0.999))
 opt_disc = optim.Adam(disc.parameters(), lr=LEARNING_RATE, betas=(0.5, 0.999))
 criterion = nn.BCELoss()
 
-noise = torch.randn(BATCH_SIZE, Z_DIM, 1, 1).to(device)
+fixed_noise = torch.randn(32, Z_DIM, 1, 1)
 
 gen.train()
 disc.train()
@@ -51,22 +51,26 @@ disc.train()
 for epoch in range(NUM_EPOCHS):
     for i, (imgs, _) in enumerate(loader):
         imgs = imgs.to(device)
+        noise = torch.randn(BATCH_SIZE, Z_DIM, 1, 1).to(device)
         # Train Discriminator
-        disc.zero_grad()
+        fake = gen(noise)
+
         real_labels = torch.ones(BATCH_SIZE, 1, 1, 1).to(device)
         fake_labels = torch.zeros(BATCH_SIZE, 1, 1, 1).to(device)
         real_outputs = disc(imgs)
-        fake_outputs = disc(gen(noise))
-        real_loss = criterion(real_outputs, real_labels)
-        fake_loss = criterion(fake_outputs, fake_labels)
+        fake_outputs = disc(fake.detach()) # detach to avoid backprop through generator
+        real_loss = criterion(real_outputs, torch.ones_like(real_outputs))
+        fake_loss = criterion(fake_outputs, torch.zeros_like(fake_outputs))
         d_loss = (real_loss + fake_loss) / 2
+        disc.zero_grad()
         d_loss.backward()
         opt_disc.step()
         # Train Generator
+        
+        
+        gen_outputs = disc(fake)
+        g_loss = criterion(gen_outputs, torch.ones_like(gen_outputs))
         gen.zero_grad()
-        gen_labels = torch.ones(BATCH_SIZE, 1, 1, 1).to(device)
-        gen_outputs = disc(gen(noise))
-        g_loss = criterion(gen_outputs, gen_labels)
         g_loss.backward()
         opt_gen.step()
         if i % 100 == 0:
