@@ -91,4 +91,6 @@ def test():
     gen = Generator(noise_dim, in_channels, 8)
     z = torch.randn((N, noise_dim, 1, 1))
     assert gen(z).shape == (N, in_channels, H, W), "Generator test failed"
+    print("All tests passed")
 
+test()
