@@ -21,7 +21,7 @@ BATCH_SIZE = 128
 IMAGE_SIZE = 64
 CHANNELS_IMG = 1
 Z_DIM = 100
-NUM_EPOCHS = 100
+NUM_EPOCHS = 25
 FEATURES_DISC = 64
 FEATURES_GEN = 64
 
@@ -83,10 +83,10 @@ for epoch in range(NUM_EPOCHS):
         opt_gen.step()
 
 
-        if (iters % 500 == 0) or ((epoch == NUM_EPOCHS-1) and (i == len(loader)-1)):
+        if (iters % 200 == 0) or ((epoch == NUM_EPOCHS-1) and (i == len(loader)-1)):
             with torch.no_grad():
-                fake = gen(fixed_noise).detach().cpu()
-            img_list.append(vutils.make_grid(fake, padding=2, normalize=True))
+                faker = gen(fixed_noise)
+            img_list.append(vutils.make_grid(faker, padding=2, normalize=True))
 
 
 
