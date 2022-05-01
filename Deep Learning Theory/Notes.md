@@ -21,6 +21,8 @@
     
     ![alt text](http://i.stack.imgur.com/2WU5Y.png)
 
+    This loss convergence would normally signify that the GAN model found some optimum, where it can't improve more, which also should mean that it has learned well enough.
+
     Here are a few side notes, that I hope would be of help:
 
     .If loss haven't converged very well, it doesn't necessarily mean that the model hasn't learned anything - check the generated examples, sometimes they come out good enough. Alternatively, can try changing learning rate and other parameters.
