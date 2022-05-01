@@ -25,9 +25,12 @@
 
 
 5. Comparison of Normalization Techniques
-![heeo](https://user-images.githubusercontent.com/53966090/166148592-10cdbf9b-4ee8-4476-8bdd-505f478e3de6.png)
+![Image](https://user-images.githubusercontent.com/53966090/166148592-10cdbf9b-4ee8-4476-8bdd-505f478e3de6.png)
+    Credit : https://www.youtube.com/watch?v=ffQfk3uS9Os
 
-    ![alt text](Deep Learning Theory/A.png?raw=true "Comparison")
+    -> As we can see that Instance Normalization doesnot perform well in Resnet-50 but Batch normalization and Group Normalization performs better.
+
+    
 
 5. Understanding GAN Loss 
 
@@ -35,7 +38,7 @@
 
     Now one thing that should happen often enough (depending on your data and initialisation) is that both discriminator and generator losses are converging to some permanent numbers, like this:
     
-    ![alt text](http://i.stack.imgur.com/2WU5Y.png)
+    ![Image](http://i.stack.imgur.com/2WU5Y.png)
 
     This loss convergence would normally signify that the GAN model found some optimum, where it can't improve more, which also should mean that it has learned well enough.
 
