@@ -3,6 +3,7 @@
 """
 
 import torch 
+import numpy as np
 import torch.nn as nn
 import torch.optim as optim
 import torchvision
@@ -21,7 +22,7 @@ BATCH_SIZE = 128
 IMAGE_SIZE = 64
 CHANNELS_IMG = 1
 Z_DIM = 100
-NUM_EPOCHS = 25
+NUM_EPOCHS = 300
 FEATURES_DISC = 64
 FEATURES_GEN = 64
 
