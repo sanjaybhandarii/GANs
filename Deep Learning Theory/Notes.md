@@ -11,9 +11,25 @@
 2. Layer Normalization
 
     -> Normalization is done for a single example of input for a layer of network i.e contains inputs from all channels in a example.
+    -> Here, you dont need to wait for all the inputs in the batch to be processed so it is faster method.
 
 
-3. Understanding GAN Loss 
+3. Instance Normalization
+
+    ->Normalization is done for a single channel by computing mean and std deviation for single individual channel.
+
+
+4. Group Normalization
+
+    -> Normallization is done by grouping a number of channels i.e compute mean and std dev based on a group(2,3 or more channels in a group) and then normalize.
+
+
+5. Comparison of Normalization Techniques
+
+    ![alt text](/home/chaos/Pictures/Screenshots/A.png)
+    
+
+5. Understanding GAN Loss 
 
     ->For GANs the losses are very non-intuitive. Mostly it happens down to the fact that generator and discriminator are competing against each other, hence improvement on the one means the higher loss on the other, until this other learns better on the received loss, which screws up its competitor, etc.
 
@@ -25,12 +41,10 @@
 
     Here are a few side notes, that I hope would be of help:
 
-    .If loss haven't converged very well, it doesn't necessarily mean that the model hasn't learned anything - check the generated examples, sometimes they come out good enough. Alternatively, can try changing learning rate and other parameters.
+    -If loss haven't converged very well, it doesn't necessarily mean that the model hasn't learned anything - check the generated examples, sometimes they come out good enough. Alternatively, can try changing learning rate and other parameters.
 
-    .If the model converged well, still check the generated examples - sometimes the generator finds one/few examples that discriminator can't distinguish from the genuine data. The trouble is it always gives out these few, not creating anything new, this is called mode collapse. Usually introducing some diversity to your data helps.
+    -If the model converged well, still check the generated examples - sometimes the generator finds one/few examples that discriminator can't distinguish from the genuine data. The trouble is it always gives out these few, not creating anything new, this is called mode collapse. Usually introducing some diversity to your data helps.
 
-    .As vanilla GANs are rather unstable, I'd suggest to use some version of the DCGAN models, as they contain some features like convolutional layers and batch normalisation, that are supposed to help with the stability of the convergence. (the picture above is a result of the DCGAN rather than vanilla GAN)
+    -This is some common sense but still: like with most neural net structures tweaking the model, i.e. changing its parameters or/and architecture to fit your certain needs/data can improve the model or screw it.
 
-    .This is some common sense but still: like with most neural net structures tweaking the model, i.e. changing its parameters or/and architecture to fit your certain needs/data can improve the model or screw it.
-
-    Credit : https://stackoverflow.com/questions/42690721/how-to-interpret-the-discriminators-loss-and-the-generators-loss-in-generative
+        Credit : https://stackoverflow.com/questions/42690721/how-to-interpret-the-discriminators-loss-and-the-generators-loss-in-generative
