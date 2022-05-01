@@ -45,7 +45,7 @@ class Discriminator(nn.Module):
 class Generator(nn.Module):
     def __init__(self, z_dim, img_channels, features_g):
         super(Generator, self).__init__()
-        self.gen = nn.Sequential(
+        self.net = nn.Sequential(
             # Input: N x z_dim x 1 x 1
             self._block(z_dim, features_g * 16, 4, 1, 0),  # img: 4x4
             self._block(features_g * 16, features_g * 8, 4, 2, 1),  # img: 8x8
