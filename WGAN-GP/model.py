@@ -22,7 +22,7 @@ class Critic(nn.Module):
            
             nn.Conv2d(features_d * 8, 1, kernel_size=4, stride=2, padding=0),
             # 1 x 1
-            nn.Sigmoid(),
+            
         )
 
     def _block(self, in_channels, out_channels, kernel_size, stride, padding):
@@ -94,4 +94,3 @@ def test():
     assert gen(z).shape == (N, in_channels, H, W), "Generator test failed"
     print("All tests passed")
 
-test()

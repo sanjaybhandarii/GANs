@@ -70,21 +70,21 @@ for epoch in range(NUM_EPOCHS):
         #From paper train critic 5 iters for 1 iter of generator
         #Train critic: max E[critic(real)] - E[critic(fake)] i.e min -(E[critic(real)] - E[critic(fake)])
 
+        for _ in range(CRITIC_ITERS):
+            noise = torch.randn(curr_batch_size, Z_DIM, 1, 1).to(device)
+            # Train critic
+            fake = gen(noise)
 
-        noise = torch.randn(BATCH_SIZE, Z_DIM, 1, 1).to(device)
-        # Train critic
-        fake = gen(noise)
-
-        real_outputs = critic(imgs).reshape(-1)
-        fake_outputs = critic(fake.detach()).reshape(-1) # detach for reuse in generator
-        gp = gradient_penalty(critic, imgs, fake, device= device)
-        critic_loss = ( 
-            -(torch.mean(real_outputs) - torch.mean(fake_outputs)) + LAMBDA * gp
-            )
-        critic.zero_grad()
-        critic_loss.backward()
-        opt_critic.step()
-        # Train Generator
+            real_outputs = critic(imgs).reshape(-1)
+            fake_outputs = critic(fake).reshape(-1) 
+            gp = gradient_penalty(critic, imgs, fake, device= device)
+            critic_loss = ( 
+                -(torch.mean(real_outputs) - torch.mean(fake_outputs)) + LAMBDA * gp
+                )
+            critic.zero_grad()
+            critic_loss.backward(retain_graph=True)# retain for reuse of fake in generator training
+            opt_critic.step()
+        
         
         
         # Train Generator: max E[critic(gen_fake)] i.e min -E[critic(gen_fake)]
@@ -104,8 +104,8 @@ for epoch in range(NUM_EPOCHS):
 
         if i == 0:
             print("Epoch: {}/{}".format(epoch, NUM_EPOCHS))
-            print("Critic loss: {}".format(d_loss))
-            print("Generator loss: {}".format(g_loss))
+            print("Critic loss: {}".format(critic_loss))
+            print("Generator loss: {}".format(gen_loss))
             # print("Real outputs: {}".format(real_outputs))
             # print("Fake outputs: {}".format(fake_outputs))
             # print("Real labels: {}".format(real_labels))
