@@ -51,3 +51,10 @@
     -This is some common sense but still: like with most neural net structures tweaking the model, i.e. changing its parameters or/and architecture to fit your certain needs/data can improve the model or screw it.
 
         Credit : https://stackoverflow.com/questions/42690721/how-to-interpret-the-discriminators-loss-and-the-generators-loss-in-generative
+
+
+7.  WGAN-GP
+
+    -> WGAN with gradient penalty is a variant of WGAN.
+    -> ALgorithm:
+    
