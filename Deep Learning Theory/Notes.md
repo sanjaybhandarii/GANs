@@ -57,4 +57,4 @@
 
     -> WGAN with gradient penalty is a variant of WGAN.
     -> ALgorithm:
-    
+        
