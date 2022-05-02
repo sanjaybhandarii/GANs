@@ -35,7 +35,7 @@ class Critic(nn.Module):
                 padding,
                 bias=False,
             ),
-            nn.BatchNorm2d(out_channels),
+            nn.InstanceNorm2d(out_channels, affine=True),
             nn.LeakyReLU(0.2),
         )
 
@@ -94,4 +94,4 @@ def test():
     assert gen(z).shape == (N, in_channels, H, W), "Generator test failed"
     print("All tests passed")
 
-# test()
+test()
