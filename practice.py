@@ -1,4 +1,5 @@
 import torch 
 
-a = torch.zeros(2,3,4)
-print(a)
+a = torch.randn(4,1,1,1).repeat(1,2,2,2)
+print(a.shape)
+print(a.view(a.shape[0],-1))

@@ -59,6 +59,12 @@
     -> ALgorithm:<br/>
 ![Screenshot from 2022-05-02 09-16-19](https://user-images.githubusercontent.com/53966090/166181058-5f94e6cc-c506-4981-b17a-f31b132283d0.png)
 
+8. Backward for non-scalar variables
+
+
+    Credit : https://www.youtube.com/watch?v=hjnVLfvhN0Q
+
+
     
     
     
