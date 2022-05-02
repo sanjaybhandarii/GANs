@@ -60,6 +60,8 @@
 ![Screenshot from 2022-05-02 09-16-19](https://user-images.githubusercontent.com/53966090/166181058-5f94e6cc-c506-4981-b17a-f31b132283d0.png)
 
 8. Backward for non-scalar variables
+![Screenshot from 2022-05-02 09-39-32](https://user-images.githubusercontent.com/53966090/166182527-48442662-9c13-4dcd-bca1-6dab871e0a95.png)
+![Screenshot from 2022-05-02 09-41-42](https://user-images.githubusercontent.com/53966090/166182528-d4e60e63-d3c8-44a0-bb3b-ab478d44f024.png)
 
 
     Credit : https://www.youtube.com/watch?v=hjnVLfvhN0Q
