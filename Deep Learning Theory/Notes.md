@@ -1,17 +1,17 @@
 1.  Batch Normalization
     
-    ->Normalization is done for a single neuron/perceptron for a batch of inputs i.e contains inputs from identical channels of different examples.
+    ->Normalization is done for a single neuron/perceptron for a batch of inputs i.e contains inputs from identical channels of different examples.<br/>
         It means that all channels 0 form a batch, channels 1 another batch and so on.
 
     i.Problems with Batch Normalization
 
-        -> Normalization cannot be done until the processing layer(convolution) hasnot processed all the inputs in the batch. So , this creates problem in RNN.
+        -> Normalization cannot be done until the processing layer(convolution) hasnot processed all the inputs in the batch. So , this creates problem in RNN.<br/>
         -> Performance depends on batch size i.e higher batch size means greater Performance.
 
 2. Layer Normalization
 
-    -> Normalization is done for a single example of input for a layer of network i.e contains inputs from all channels in a example.
-    -> Here, you dont need to wait for all the inputs in the batch to be processed so it is faster method.
+    -> Normalization is done for a single example of input for a layer of network i.e contains inputs from all channels in a example.<br/>
+    -> Here, you dont need to wait for all the inputs in the batch to be processed so it is faster method.<br/>
 
 
 3. Instance Normalization
@@ -34,7 +34,7 @@
 
 6. Understanding GAN Loss 
 
-    ->For GANs the losses are very non-intuitive. Mostly it happens down to the fact that generator and discriminator are competing against each other, hence improvement on the one means the higher loss on the other, until this other learns better on the received loss, which screws up its competitor, etc.
+    ->For GANs the losses are very non-intuitive. Mostly it happens down to the fact that generator and discriminator are competing against each other, hence improvement on the one means the higher loss on the other, until this other learns better on the received loss, which screws up its competitor, etc.<br/>
 
     Now one thing that should happen often enough (depending on your data and initialisation) is that both discriminator and generator losses are converging to some permanent numbers, like this:
     
@@ -44,19 +44,19 @@
 
     Here are a few side notes, that I hope would be of help:
 
-    -If loss haven't converged very well, it doesn't necessarily mean that the model hasn't learned anything - check the generated examples, sometimes they come out good enough. Alternatively, can try changing learning rate and other parameters.
+    -If loss haven't converged very well, it doesn't necessarily mean that the model hasn't learned anything - check the generated examples, sometimes they come out good enough. Alternatively, can try changing learning rate and other parameters.<br/>
 
-    -If the model converged well, still check the generated examples - sometimes the generator finds one/few examples that discriminator can't distinguish from the genuine data. The trouble is it always gives out these few, not creating anything new, this is called mode collapse. Usually introducing some diversity to your data helps.
+    -If the model converged well, still check the generated examples - sometimes the generator finds one/few examples that discriminator can't distinguish from the genuine data. The trouble is it always gives out these few, not creating anything new, this is called mode collapse. Usually introducing some diversity to your data helps.<br/>
 
-    -This is some common sense but still: like with most neural net structures tweaking the model, i.e. changing its parameters or/and architecture to fit your certain needs/data can improve the model or screw it.
+    -This is some common sense but still: like with most neural net structures tweaking the model, i.e. changing its parameters or/and architecture to fit your certain needs/data can improve the model or screw it.<br/>
 
         Credit : https://stackoverflow.com/questions/42690721/how-to-interpret-the-discriminators-loss-and-the-generators-loss-in-generative
 
 
 7.  WGAN-GP
     
-    -> WGAN with gradient penalty is a variant of WGAN.
-    -> ALgorithm:
+    -> WGAN with gradient penalty is a variant of WGAN.<br/>
+    -> ALgorithm:<br/>
 ![Screenshot from 2022-05-02 09-16-19](https://user-images.githubusercontent.com/53966090/166181058-5f94e6cc-c506-4981-b17a-f31b132283d0.png)
 
     
