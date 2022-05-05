@@ -64,8 +64,6 @@ for epoch in range(NUM_EPOCHS):
         # Train Discriminator
         fake = gen(noise)
 
-        real_labels = torch.ones(BATCH_SIZE, 1, 1, 1).to(device)
-        fake_labels = torch.zeros(BATCH_SIZE, 1, 1, 1).to(device)
         real_outputs = disc(imgs)
         fake_outputs = disc(fake.detach()) # detach to avoid backprop through generator
         real_loss = criterion(real_outputs, torch.ones_like(real_outputs))

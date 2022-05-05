@@ -25,7 +25,7 @@ NUM_CLASSES =10
 GEN_EMBEDDING = 100
 
 Z_DIM = 100
-NUM_EPOCHS = 300
+NUM_EPOCHS = 100
 FEATURES_DISC = 64
 FEATURES_GEN = 64
 
@@ -65,8 +65,10 @@ for epoch in range(NUM_EPOCHS):
         iters += 1
         imgs = imgs.to(device)
         labels = labels.to(device)
+        print(labels.shape)
         noise = torch.randn(BATCH_SIZE, Z_DIM, 1, 1).to(device)
         # Train Discriminator
+        
         fake = gen(noise, labels)
 
         real_labels = torch.ones(BATCH_SIZE, 1, 1, 1).to(device)
