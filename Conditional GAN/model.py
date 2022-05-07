@@ -84,7 +84,7 @@ class Generator(nn.Module):
 
     def forward(self, x,labels):
         #latent vector z: N x z_dim x 1 x 1
-        embedding = self.embed(labels).unsqueeze(2).unsqueeze(3)
+        embedding = (self.embed(labels)).unsqueeze(2).unsqueeze(3)
         x = torch.cat([x, embedding], dim=1)
         return self.net(x)
 
@@ -95,13 +95,13 @@ def initialize_weights(model):
         if isinstance(m, (nn.Conv2d, nn.ConvTranspose2d, nn.BatchNorm2d)):
             nn.init.normal_(m.weight.data, 0.0, 0.02) # mean 0 std 0.02
 
-def test():
-    N, in_channels, H, W = 8, 3, 64, 64
-    noise_dim = 100
-    x = torch.randn((N, in_channels, H, W))
-    disc = Discriminator(in_channels, 8)
-    assert disc(x).shape == (N, 1, 1, 1), "Discriminator test failed"
-    gen = Generator(noise_dim, in_channels, 8)
-    z = torch.randn((N, noise_dim, 1, 1))
-    assert gen(z).shape == (N, in_channels, H, W), "Generator test failed"
-    print("All tests passed")
+# def test():
+#     N, in_channels, H, W = 8, 3, 64, 64
+#     noise_dim = 100
+#     x = torch.randn((N, in_channels, H, W))
+#     disc = Discriminator(in_channels, 8)
+#     assert disc(x).shape == (N, 1, 1, 1), "Discriminator test failed"
+#     gen = Generator(noise_dim, in_channels, 8)
+#     z = torch.randn((N, noise_dim, 1, 1))
+#     assert gen(z).shape == (N, in_channels, H, W), "Generator test failed"
+#     print("All tests passed")
